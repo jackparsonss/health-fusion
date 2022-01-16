@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { PrimaryButton } from "../Components/PrimaryButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
 
 const days = [
     { title: "SU", active: true },
@@ -98,7 +99,7 @@ export const Plus = () => {
                 })}
             </View>
             <View style={styles.btnWrapper}>
-                <PrimaryButton background={"#8E97FD"} label={"SAVE"} />
+                <PrimaryButton background={"#04C38E"} label={"SAVE"} />
 
                 <PrimaryButton
                     background={"#ffff"}
@@ -112,23 +113,7 @@ export const Plus = () => {
 
 export default Plus;
 
-/*
-export const colors = {
-    primary: '#8E97FD',
-    white: '#ffff',
-    whiteShade: '#FFECCC',
-    whiteShadeBg: '#EBEAEC',
-    gray: '#A1A4B2',
-    bg: '#F2F3F7',
-    secondaryBg: '#E5E5E5',
-    darkBg: '#333242',
-    lightBg: '#ECD3C2',
-    heading: '#3F414E',
-    facebookBg: '#7583CA',
-  };
-  */
-
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         display: "flex",
         flex: 1,
