@@ -15,6 +15,8 @@ const Settings = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.buttonContainer}>
                 <Text style={styles.txt}>Settings</Text>
+                <Text style={styles.txt2}>Welcome</Text>
+                <Text style={styles.txt2}>EMAIL</Text>
                 <TouchableOpacity style={styles.button} onPress={handleLogout}>
                     <Text style={styles.buttonText}>Logout</Text>
                 </TouchableOpacity>
@@ -33,6 +35,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 40,
     },
+    txt2: {
+        paddingTop: 10,
+        fontWeight: "500",
+        fontSize: 20,
+    },
     buttonContainer: {
         width: "80%",
         justifyContent: "center",
@@ -40,7 +47,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
     },
     button: {
-        marginTop: 525,
+        marginTop: 450,
         backgroundColor: "#FF6961",
         width: "80%",
         padding: 15,

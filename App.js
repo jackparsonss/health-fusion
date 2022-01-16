@@ -7,6 +7,8 @@ import Home from "./src/Screens/Home";
 import Login from "./src/Screens/Login";
 import Map from "./src/Screens/Map";
 import Settings from "./src/Screens/Settings";
+import { Provider } from "react-redux";
+import { store } from "./src/store/store";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,35 +18,37 @@ export default function App() {
     });
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Home"
-                    component={Home}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Calendar"
-                    component={Calendar}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Map"
-                    component={Map}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Settings"
-                    component={Settings}
-                    options={{ headerShown: false }}
-                />
-            </Stack.Navigator>
-            <Footer />
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Home"
+                        component={Home}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Calendar"
+                        component={Calendar}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Map"
+                        component={Map}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Settings"
+                        component={Settings}
+                        options={{ headerShown: false }}
+                    />
+                </Stack.Navigator>
+                <Footer />
+            </NavigationContainer>
+        </Provider>
     );
 }

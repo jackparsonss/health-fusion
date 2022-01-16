@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, SafeAreaView, Text } from "react-native";
-import { Agenda, LocaleConfig} from "react-native-calendars";
+import { Agenda, LocaleConfig } from "react-native-calendars";
 import { Card, Avatar } from "react-native-paper";
 
 LocaleConfig.locales["default"] = {
@@ -102,7 +102,7 @@ const Schedule: React.FC = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <Agenda
                 items={items}
                 loadItemsForMonth={loadItems}

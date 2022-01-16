@@ -14,11 +14,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import { setEmail, selectEmail, setUser } from "../slices/authSlice";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const [tempEmail, setTempEmail] = useState();
+    const email = useSelector(selectEmail);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,25 +35,33 @@ const Login = () => {
     }, []);
 
     const handleSignUp = async () => {
+        dispatch(setEmail(tempEmail));
+
         try {
             const userCredentials = await createUserWithEmailAndPassword(
                 auth,
-                email,
+                tempEmail,
                 password
             );
+
             const user = userCredentials.user;
+            setUser(user);
         } catch (err) {
             alert(err.message);
         }
     };
 
     const handleLogin = async () => {
+        dispatch(setEmail(email));
         try {
-            const user = await signInWithEmailAndPassword(
+            const userCredentials = await signInWithEmailAndPassword(
                 auth,
-                email,
+                tempEmail,
                 password
             );
+
+            const user = userCredentials.user;
+            setUser(user);
         } catch (err) {
             alert(err.message);
         }
@@ -60,8 +72,8 @@ const Login = () => {
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
+                    value={tempEmail}
+                    onChangeText={(text) => setTempEmail(text)}
                     style={styles.input}
                 />
                 <TextInput
