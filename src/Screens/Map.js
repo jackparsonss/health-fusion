@@ -3,7 +3,6 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { StyleSheet, ScrollView } from "react-native";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import MapComponent from "../Components/MapComponent";
 
 const Map = () => {

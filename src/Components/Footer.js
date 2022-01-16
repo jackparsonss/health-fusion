@@ -6,11 +6,11 @@ import {
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
-import { useSelector } from "react-redux";
-import { selectUser } from "../slices/authSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const data = [
     {
@@ -41,8 +41,18 @@ const data = [
 ];
 
 const Footer = () => {
-    const user = useSelector(selectUser);
     const navigation = useNavigation();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const loggedIn = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsAuthenticated(true);
+            }
+        });
+
+        return loggedIn;
+    }, []);
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -61,9 +71,9 @@ const Footer = () => {
     );
 
     // If user is not logged in, do not show bottom nav
-    // if (!user) {
-    //     return <></>;
-    // }
+    if (!isAuthenticated) {
+        return <></>;
+    }
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
