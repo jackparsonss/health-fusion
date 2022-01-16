@@ -60,9 +60,10 @@ const Footer = () => {
         </TouchableOpacity>
     );
 
-    if (!user) {
-        return <></>;
-    }
+    // If user is not logged in, do not show bottom nav
+    // if (!user) {
+    //     return <></>;
+    // }
     return (
         <SafeAreaView style={styles.container}>
             <FlatList

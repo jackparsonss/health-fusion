@@ -3,9 +3,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectEmail } from "../slices/authSlice";
 
 const Settings = () => {
     const navigation = useNavigation();
+    const email = useSelector(selectEmail);
+
     const handleLogout = async () => {
         await signOut(auth);
         navigation.navigate("Login");
@@ -16,7 +20,7 @@ const Settings = () => {
             <View style={styles.buttonContainer}>
                 <Text style={styles.txt}>Settings</Text>
                 <Text style={styles.txt2}>Welcome</Text>
-                <Text style={styles.txt2}>EMAIL</Text>
+                <Text style={styles.txt2}>{email}</Text>
                 <TouchableOpacity style={styles.button} onPress={handleLogout}>
                     <Text style={styles.buttonText}>Logout</Text>
                 </TouchableOpacity>
