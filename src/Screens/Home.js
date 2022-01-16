@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
     const [medicationItems, setMedicationItems] = useState([{}]);
-    const user = useSelector(selectUser);
 
     useEffect(() => {
         fetchDBMedication();

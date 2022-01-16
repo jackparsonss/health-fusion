@@ -45,11 +45,13 @@ const Footer = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const loggedIn = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setIsAuthenticated(true);
             }
         });
+
+        return loggedIn;
     }, []);
 
     const renderItem = ({ item }) => (
