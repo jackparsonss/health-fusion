@@ -6,6 +6,7 @@ import Calendar from "./src/Screens/CalendarAgenda";
 import Home from "./src/Screens/Home";
 import Login from "./src/Screens/Login";
 import Map from "./src/Screens/Map";
+import Plus from "./src/Screens/Plus";
 import Settings from "./src/Screens/Settings";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
@@ -40,6 +41,11 @@ export default function App() {
                         name="Map"
                         component={Map}
                         options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                    name="Plus"
+                    component={Plus}
+                    options={{ headerShown: false }}
                     />
                     <Stack.Screen
                         name="Settings"
