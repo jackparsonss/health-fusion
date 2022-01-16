@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { PrimaryButton } from "../Components/PrimaryButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
 import { selectUser } from "../slices/authSlice";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase";

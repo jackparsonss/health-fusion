@@ -14,28 +14,22 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
-import {
-    setEmail,
-    selectEmail,
-    setUser,
-    selectUser,
-} from "../slices/authSlice";
+import { useDispatch } from "react-redux";
+import { setEmail, setUser } from "../slices/authSlice";
 
 const Login = () => {
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [tempEmail, setTempEmail] = useState();
-    const email = useSelector(selectEmail);
-    const userId = useSelector(selectUser);
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const loggedIn = onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigation.navigate("Home");
             }
         });
+        return loggedIn;
     }, []);
 
     const handleSignUp = async () => {

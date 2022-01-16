@@ -3,11 +3,10 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Keyboard,
     ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Task from "./Task";
+import Task from "../Components/Task";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { selectUser } from "../slices/authSlice";
