@@ -15,7 +15,12 @@ import {
 import { auth } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { setEmail, selectEmail, setUser } from "../slices/authSlice";
+import {
+    setEmail,
+    selectEmail,
+    setUser,
+    selectUser,
+} from "../slices/authSlice";
 
 const Login = () => {
     const [password, setPassword] = useState("");
@@ -23,20 +28,19 @@ const Login = () => {
     const dispatch = useDispatch();
     const [tempEmail, setTempEmail] = useState();
     const email = useSelector(selectEmail);
+    const userId = useSelector(selectUser);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigation.navigate("Home");
             }
         });
-
-        return unsubscribe;
     }, []);
 
     const handleSignUp = async () => {
         dispatch(setEmail(tempEmail));
-
+        console.log("SIGNING UP", email);
         try {
             const userCredentials = await createUserWithEmailAndPassword(
                 auth,
@@ -45,7 +49,8 @@ const Login = () => {
             );
 
             const user = userCredentials.user;
-            setUser(user);
+            dispatch(setUser(user.uid));
+            console.log("USERID", userId);
         } catch (err) {
             alert(err.message);
         }
@@ -61,7 +66,7 @@ const Login = () => {
             );
 
             const user = userCredentials.user;
-            setUser(user);
+            setUser(user.uid);
         } catch (err) {
             alert(err.message);
         }

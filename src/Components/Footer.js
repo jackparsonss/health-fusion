@@ -7,8 +7,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { selectUser } from "../slices/authSlice";
 
 const data = [
     {
@@ -39,6 +41,7 @@ const data = [
 ];
 
 const Footer = () => {
+    const user = useSelector(selectUser);
     const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
@@ -57,6 +60,9 @@ const Footer = () => {
         </TouchableOpacity>
     );
 
+    if (!user) {
+        return <></>;
+    }
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
