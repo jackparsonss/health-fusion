@@ -64,7 +64,7 @@ const Schedule: React.FC = () => {
                     const numItems = Math.floor(Math.random() * 3 + 1);
                     for (let j = 0; j < numItems; j++) {
                         items[strTime].push({
-                            name: "Item for " + strTime + " #" + j,
+                            name: "Medication for " + strTime + " #" + (j + 1),
                             height: Math.max(
                                 50,
                                 Math.floor(Math.random() * 150)
@@ -106,7 +106,7 @@ const Schedule: React.FC = () => {
             <Agenda
                 items={items}
                 loadItemsForMonth={loadItems}
-                selected={"2017-05-16"}
+                selected={"2022-01-16"}
                 renderItem={renderItem}
                 theme={{
                     backgroundColor: "#FF6961",
