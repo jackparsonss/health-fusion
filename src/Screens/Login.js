@@ -40,7 +40,6 @@ const Login = () => {
 
     const handleSignUp = async () => {
         dispatch(setEmail(tempEmail));
-        console.log("SIGNING UP", email);
         try {
             const userCredentials = await createUserWithEmailAndPassword(
                 auth,
@@ -50,14 +49,13 @@ const Login = () => {
 
             const user = userCredentials.user;
             dispatch(setUser(user.uid));
-            console.log("USERID", userId);
         } catch (err) {
             alert(err.message);
         }
     };
 
     const handleLogin = async () => {
-        dispatch(setEmail(email));
+        dispatch(setEmail(tempEmail));
         try {
             const userCredentials = await signInWithEmailAndPassword(
                 auth,
@@ -66,7 +64,7 @@ const Login = () => {
             );
 
             const user = userCredentials.user;
-            setUser(user.uid);
+            dispatch(setUser(user.uid));
         } catch (err) {
             alert(err.message);
         }

@@ -11,6 +11,10 @@ import {
 import { PrimaryButton } from "../Components/PrimaryButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
+import { selectUser } from "../slices/authSlice";
+import { useSelector } from "react-redux";
+import { db } from "../../firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 const days = [
     { title: "SU", active: true },
@@ -26,11 +30,20 @@ export const Plus = () => {
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState("time");
     const [show, setShow] = useState(true);
+    const [medication, setMedication] = useState("");
+    const user = useSelector(selectUser);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === "ios");
         setDate(currentDate);
+    };
+
+    const addMedication = async () => {
+        const colRef = collection(db, "medication");
+        await addDoc(colRef, {
+            medication: [medication],
+        });
     };
 
     return (
@@ -47,8 +60,8 @@ export const Plus = () => {
                 <TextInput
                     style={styles.input}
                     placeholder={"Medication"}
-                    // value={task}
-                    // onChangeText={(text) => setTask(text)}
+                    value={medication}
+                    onChangeText={(text) => setMedication(text)}
                 />
             </KeyboardAvoidingView>
             <View style={styles.headingWrapper}>
@@ -106,9 +119,15 @@ export const Plus = () => {
                 })}
             </View>
             <View style={styles.btnWrapper}>
-                <PrimaryButton background={"#04C38E"} label={"SAVE"} />
+                <PrimaryButton
+                    background={"#04C38E"}
+                    label={"SAVE"}
+                    isSave={true}
+                    updateDB={addMedication}
+                />
 
                 <PrimaryButton
+                    isSave={false}
                     background={"#ffff"}
                     color={"#3F414E"}
                     label={"NO THANKS"}

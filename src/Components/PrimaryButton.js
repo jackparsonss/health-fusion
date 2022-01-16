@@ -1,7 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-export const PrimaryButton = ({ label, background, color }) => {
+export const PrimaryButton = ({
+    label,
+    background,
+    color,
+    isSave,
+    updateDB,
+}) => {
     const background_color = background || "#8E97FD";
     const label_color = color || "#ffff";
 
@@ -9,7 +15,12 @@ export const PrimaryButton = ({ label, background, color }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => {
+                    if (isSave) {
+                        updateDB();
+                    }
+                    navigation.navigate("Home");
+                }}
                 style={[styles.btn, { backgroundColor: background_color }]}
             >
                 <Text style={[styles.label, { color: label_color }]}>

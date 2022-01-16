@@ -1,31 +1,41 @@
 import {
-    KeyboardAvoidingView,
     StyleSheet,
     Text,
     View,
-    TextInput,
     TouchableOpacity,
     Keyboard,
     ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Task from "./Task";
-import { BottomSheet } from "react-native-elements/dist/bottomSheet/BottomSheet";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { selectUser } from "../slices/authSlice";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-    const [task, setTask] = useState();
-    const [taskItems, setTaskItems] = useState([]);
+    const [medicationItems, setMedicationItems] = useState([{}]);
+    const user = useSelector(selectUser);
 
-    const handleAddTask = () => {
-        Keyboard.dismiss();
-        setTaskItems([...taskItems, task]);
-        setTask(null);
+    useEffect(() => {
+        fetchDBMedication();
+    }, [medicationItems]);
+
+    const completeMedication = (index) => {
+        const docId = medicationItems[index].id;
+
+        const docRef = doc(db, "medication", docId);
+        deleteDoc(docRef); // remove from db
     };
 
-    const completeTask = (index) => {
-        let itemsCopy = [...taskItems];
-        itemsCopy.splice(index, 1);
-        setTaskItems(itemsCopy);
+    const fetchDBMedication = async () => {
+        const colRef = collection(db, "medication");
+        const snapshot = await getDocs(colRef);
+        let medications = [];
+        snapshot.docs.forEach((doc) => {
+            medications.push({ id: doc.id, data: doc.data().medication });
+        });
+        setMedicationItems(medications);
     };
 
     return (
@@ -42,32 +52,19 @@ const Home = () => {
                     <Text style={styles.sectionTitle}>Today's Medications</Text>
                     <View style={styles.items}>
                         {/* This is where the Medications entered by the user will go! */}
-                        {taskItems.map((item, index) => {
+                        {medicationItems.map((item, index) => {
                             return (
                                 <TouchableOpacity
                                     key={index}
-                                    onPress={() => completeTask(index)}
+                                    onPress={() => completeMedication(index)}
                                 >
-                                    <Task text={item} />
+                                    <Task text={item.data} />
                                 </TouchableOpacity>
                             );
                         })}
                     </View>
                 </View>
             </ScrollView>
-            {/* Write a task */}
-            {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
-            {/* <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
-      >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView> */}
         </View>
     );
 };
