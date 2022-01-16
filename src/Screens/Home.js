@@ -1,57 +1,63 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import React, {useState} from 'react';
-import Task from './Task';
-import { BottomSheet } from 'react-native-elements/dist/bottomSheet/BottomSheet';
+import {
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    Keyboard,
+    ScrollView,
+} from "react-native";
+import React, { useState } from "react";
+import Task from "./Task";
+import { BottomSheet } from "react-native-elements/dist/bottomSheet/BottomSheet";
 
 const Home = () => {
     const [task, setTask] = useState();
     const [taskItems, setTaskItems] = useState([]);
-  
-    const handleAddTask = () => {
-      Keyboard.dismiss();
-      setTaskItems([...taskItems, task])
-      setTask(null);
-    }
-  
-    const completeTask = (index) => {
-      let itemsCopy = [...taskItems];
-      itemsCopy.splice(index, 1);
-      setTaskItems(itemsCopy)
-    }
 
-    
+    const handleAddTask = () => {
+        Keyboard.dismiss();
+        setTaskItems([...taskItems, task]);
+        setTask(null);
+    };
+
+    const completeTask = (index) => {
+        let itemsCopy = [...taskItems];
+        itemsCopy.splice(index, 1);
+        setTaskItems(itemsCopy);
+    };
+
     return (
         <View style={styles.container}>
-             {/* Scroll view when list gets longer than page */}
+            {/* Scroll view when list gets longer than page */}
             <ScrollView
                 contentContainerStyle={{
-                flexGrow: 1
+                    flexGrow: 1,
                 }}
-                keyboardShouldPersistTaps='handled'
+                keyboardShouldPersistTaps="handled"
             >
-
-
-            {/* Today's Medications */}
-            <View style={styles.tasksWrapper}>
-                <Text style={styles.sectionTitle}>Today's Medications</Text>
-                <View style={styles.items}>
-                {/* This is where the Medications entered by the user will go! */}
-                {
-                    taskItems.map((item, index) => {
-                    return (
-                        <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                        <Task text={item} /> 
-                        </TouchableOpacity>
-                    )
-                    })
-                }
+                {/* Today's Medications */}
+                <View style={styles.tasksWrapper}>
+                    <Text style={styles.sectionTitle}>Today's Medications</Text>
+                    <View style={styles.items}>
+                        {/* This is where the Medications entered by the user will go! */}
+                        {taskItems.map((item, index) => {
+                            return (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => completeTask(index)}
+                                >
+                                    <Task text={item} />
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </View>
                 </View>
-            </View>
-        
-      </ScrollView>
-      {/* Write a task */}
-      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
-      <KeyboardAvoidingView 
+            </ScrollView>
+            {/* Write a task */}
+            {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
+            {/* <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
@@ -61,13 +67,10 @@ const Home = () => {
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
-      
-    </View>
-  );
-}
-
-
+      </KeyboardAvoidingView> */}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         color: "white",
         fontSize: 36,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     tasksWrapper: {
         paddingTop: 10,
@@ -90,33 +93,24 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     writeTaskWrapper: {
-        position: 'absolute',
+        position: "absolute",
         bottom: 60,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-    input: {
-        paddingVertical: 15,
-        paddingHorizontal: 15,
-        backgroundColor: '#FFF',
-        borderRadius: 60,
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-        width: 250,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
     },
     addWrapper: {
         width: 60,
         height: 60,
-        backgroundColor: '#FFF',
+        backgroundColor: "#FFF",
         borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#C0C0C0',
+        justifyContent: "center",
+        alignItems: "center",
+        borderColor: "#C0C0C0",
         borderWidth: 1,
-      },
-      addText: {},
+    },
+    addText: {},
 });
 
 export default Home;

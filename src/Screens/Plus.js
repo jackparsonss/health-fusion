@@ -5,6 +5,8 @@ import {
     StyleSheet,
     Platform,
     TouchableOpacity,
+    KeyboardAvoidingView,
+    TextInput,
 } from "react-native";
 import { PrimaryButton } from "../Components/PrimaryButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -34,14 +36,25 @@ export const Plus = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headingWrapper}>
+                <Text style={styles.heading}>What Is</Text>
+                <Text style={styles.heading}>The Name Of</Text>
+                <Text style={styles.heading}>Your Medication?</Text>
+            </View>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={styles.writeTaskWrapper}
+            >
+                <TextInput
+                    style={styles.input}
+                    placeholder={"Medication"}
+                    // value={task}
+                    // onChangeText={(text) => setTask(text)}
+                />
+            </KeyboardAvoidingView>
+            <View style={styles.headingWrapper}>
                 <Text style={styles.heading}>What Time </Text>
                 <Text style={styles.heading}>Would You Like To</Text>
                 <Text style={styles.heading}>Take Your Medication Today?</Text>
-
-                <Text style={styles.subHeading}>
-                    Be mindful whether or not your medications should be
-                    supplemented with a meal!
-                </Text>
             </View>
 
             <View style={styles.timePickerWrapper}>
@@ -59,12 +72,6 @@ export const Plus = () => {
                 <Text style={styles.heading}>Which Days Of The Week </Text>
                 <Text style={styles.heading}>
                     Are You To Take This Medication?
-                </Text>
-
-                <Text style={styles.subHeading}>
-                    In conjunction with our symptom tracking feature, your
-                    physician will be able to assess any side effects from your
-                    current medication habits.
                 </Text>
             </View>
 
@@ -119,6 +126,18 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
     },
+    input: {
+        marginTop: 10,
+        marginLeft: 50,
+        marginBottom: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: "#FFF",
+        borderRadius: 60,
+        borderColor: "#C0C0C0",
+        borderWidth: 1,
+        width: 250,
+    },
     headingWrapper: {
         marginTop: 30,
     },
@@ -130,25 +149,17 @@ const styles = StyleSheet.create({
         color: "#3F414E",
         justifyContent: "center",
     },
-    subHeading: {
-        fontFamily: "HelveticaNeue",
-        fontSize: 16,
-        fontWeight: "500",
-        color: "#FF6961",
-        marginTop: 15,
-        lineHeight: 25,
-    },
     timePickerWrapper: {
         backgroundColor: "#F2F3F7",
         borderRadius: 10,
-        marginTop: 30,
-        marginBottom: 0,
+        marginTop: 10,
+        marginBottom: 20,
         marginRight: 125,
     },
     dayContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 40,
+        marginTop: 20,
     },
     dayItem: {
         width: 40,
@@ -163,6 +174,6 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     btnWrapper: {
-        marginTop: 35,
+        marginTop: 65,
     },
 });
