@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts, Inter_200ExtraLight } from "@expo-google-fonts/inter";
 import Footer from "./src/Components/Footer";
-import Calendar from "./src/Screens/Calendar";
+import Calendar from "./src/Screens/CalendarAgenda";
 import Home from "./src/Screens/Home";
 import Login from "./src/Screens/Login";
 import Map from "./src/Screens/Map";
