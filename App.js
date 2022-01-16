@@ -4,6 +4,7 @@ import { useFonts, Inter_200ExtraLight } from "@expo-google-fonts/inter";
 import Footer from "./src/Components/Footer";
 import Calendar from "./src/Screens/Calendar";
 import Home from "./src/Screens/Home";
+import Login from "./src/Screens/Login";
 import Map from "./src/Screens/Map";
 import Settings from "./src/Screens/Settings";
 
@@ -17,6 +18,11 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{ headerShown: false }}
+                />
                 <Stack.Screen
                     name="Home"
                     component={Home}
