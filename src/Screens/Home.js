@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     ScrollView,
     FlatList,
-    SafeAreaView
+    SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Task from "../Components/Task";
@@ -17,6 +17,7 @@ import { Icon } from "react-native-elements";
 
 const Home = () => {
     const [medicationItems, setMedicationItems] = useState([{}]);
+    const [answered, setAnswered] = useState(false);
 
     useEffect(() => {
         fetchDBMedication();
@@ -48,31 +49,6 @@ const Home = () => {
                 }}
                 keyboardShouldPersistTaps="handled"
             >
-                <SafeAreaView>
-                    <View>
-                        <Text style={styles.symptomText}>
-                            How Are You Feeling Today?
-                        </Text>
-                        <View flexDirection="row" justifyContent="space-evenly">
-                            <TouchableOpacity style={styles.symptomIcons}>
-                                <Icon
-                                    type="simple-line-icon"
-                                    color="white"
-                                    name="like"
-                                    size="48"
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.symptomIcons}>
-                                <Icon
-                                    type="simple-line-icon"
-                                    color="white"
-                                    name="dislike"
-                                    size="48"
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </SafeAreaView>
                 {/* Today's Medications */}
                 <View style={styles.tasksWrapper}>
                     <Text style={styles.sectionTitle}>Today's Medications</Text>
@@ -91,11 +67,56 @@ const Home = () => {
                     </View>
                 </View>
             </ScrollView>
+            {!answered && (
+                <View style={styles.symptomContainer}>
+                    <Text style={styles.symptomText}>
+                        How Are You Feeling Today?
+                    </Text>
+                    <View flexDirection="row" justifyContent="space-evenly">
+                        <TouchableOpacity
+                            style={styles.symptomIcons}
+                            onPress={() => setAnswered(true)}
+                        >
+                            <Icon
+                                type="font-awesome-5"
+                                color="white"
+                                name="smile"
+                                size="48"
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.symptomIcons}
+                            onPress={() => setAnswered(true)}
+                        >
+                            <Icon
+                                type="font-awesome-5"
+                                color="white"
+                                name="meh"
+                                size="48"
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.symptomIcons}
+                            onPress={() => setAnswered(true)}
+                        >
+                            <Icon
+                                type="font-awesome-5"
+                                color="white"
+                                name="frown"
+                                size="48"
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    symptomContainer: {
+        paddingBottom: 20,
+    },
     container: {
         flex: 3,
         backgroundColor: "#FF6961",
@@ -143,8 +164,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
-        paddingTop: 15
-    }
+        paddingTop: 15,
+    },
 });
 
 export default Home;
